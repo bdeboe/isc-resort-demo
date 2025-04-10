@@ -8,19 +8,19 @@ USER root
 WORKDIR /opt/irisbuild
 
 RUN mkdir /opt/irisbuild/data/ && \
-  mkdir /opt/irisbuild/src/ && \
-  chown ${ISC_PACKAGE_MGRUSER}:${ISC_PACKAGE_IRISGROUP} /opt/irisbuild && \
-  chown ${ISC_PACKAGE_MGRUSER}:${ISC_PACKAGE_IRISGROUP} /opt/irisbuild/data && \
-  chown ${ISC_PACKAGE_MGRUSER}:${ISC_PACKAGE_IRISGROUP} /opt/irisbuild/src
-
-USER ${ISC_PACKAGE_MGRUSER}
+  mkdir /opt/irisbuild/src/
 
 COPY iris.script iris.script
 COPY data/guests.gof ./data/guests.gof
 COPY data/rooms.csv ./data/rooms.csv
 COPY src/cls/Resort/Guests.cls ./src/Guests.cls
+COPY src/sql/* ./src/
+
+RUN chown -R ${ISC_PACKAGE_MGRUSER}:${ISC_PACKAGE_IRISGROUP} /opt/irisbuild/
 
 EXPOSE 1972
+
+USER ${ISC_PACKAGE_MGRUSER}
 
 RUN iris start IRIS \
     && iris session IRIS < iris.script \
