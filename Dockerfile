@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-ARG IMAGE=intersystemsdc/iris-community:preview
+ARG IMAGE=containers.intersystems.com/intersystems/iris-community:2025.1
 
 FROM ${IMAGE}
 
