@@ -2,6 +2,15 @@ zn "%SYS"
 
 do ##class(Security.Users).UnExpireUserPasswords("*")
 
+set p("Enabled") = 1
+do ##class(Security.Events).Modify("%System","%SQL","DynamicStatementDDL",.p)
+do ##class(Security.Events).Modify("%System","%SQL","XDBCStatementDDL",.p)
+do ##class(Security.Events).Modify("%System","%SQL","DynamicStatementUtility",.p)
+do ##class(Security.Events).Modify("%System","%SQL","XDBCStatementUtility",.p)
+set sys = ##class(Security.System).%OpenId("SYSTEM")
+set sys.AuditEnabled = 1
+do sys.%Save()
+
 zn "USER"
 do $SYSTEM.OBJ.Load("/opt/irisbuild/src/Guests.cls","ck")
 do ##class(%Global).Import($NAMESPACE,"*","/opt/irisbuild/data/guests.gof",7)
