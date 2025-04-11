@@ -13,3 +13,5 @@ docker compose up
 ```
 
 Running the container will publish the Jupyter server on port 8888, so you can access it at http://localhost:8888/.
+
+:information_source: For an updated demo of new IRIS SQL features in 2025.1, check out [this demo script](2024-demo.md).
